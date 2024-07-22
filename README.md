@@ -32,7 +32,7 @@ POST /api/person
 ```
 #### Response
 ```http
-200 OK
+201 CREATED
 Content-Type: application/json
 ```
 ```json
@@ -86,7 +86,7 @@ POST /api/loans
 ```
 #### Response
 ```http
-200 OK
+201 CREATED
 Content-Type: application/json
 ```
 ```json
