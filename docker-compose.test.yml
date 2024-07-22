@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres-test
+    environment:
+      POSTGRES_DB: loan-grant-test
+      POSTGRES_USER: loan
+      POSTGRES_PASSWORD: loan
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-test
+    ports:
+      - "5673:5672"  # Porta padrão do RabbitMQ para conexões
+      - "15673:15672"  # Porta da interface de gerenciamento
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  app:
+    build: .
+    container_name: loan_grant_service_test
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/loan-grant-test
+      SPRING_DATASOURCE_USERNAME: loan
+      SPRING_DATASOURCE_PASSWORD: loan
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+    depends_on:
+      - postgres
+      - rabbitmq
+
+volumes:
+  postgres_test_data:

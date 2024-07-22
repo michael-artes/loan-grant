@@ -1,9 +1,10 @@
 package com.loan.grant.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class PersonDTO {
+public class PersonDTO implements Serializable {
     private Long id;
     private String name;
     private String identifier;

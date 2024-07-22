@@ -152,3 +152,10 @@ A estrutura do projeto é organizada da seguinte forma:
 ```
 
 
+## Execução dos tests
+Os testes pode ser executados da seguinte forma forma:
+```
+docker compose -f docker-compose.test.yml up --build -d
+./mvnw test
+docker compose -f docker-compose.test.yml down
+```
